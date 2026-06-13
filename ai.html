@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고등학생 AI 활용 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc; /* Slate 50 */
+            overflow-x: hidden;
+        }
+        
+        /* Custom Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Scroll Animation Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7); /* Slate 800 with opacity */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        @media print {
+            body, .glass-card, .bg-slate-900, .bg-slate-900\/80, .bg-gradient-to-br, .bg-indigo-900\/50 { 
+                background: white !important; 
+                color: black !important; 
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            .text-slate-400, .text-slate-300, .text-slate-500, .text-indigo-300, .text-blue-300, .text-purple-300 { color: #333 !important; }
+            .text-emerald-400, .text-emerald-300 { color: #059669 !important; font-weight: bold; }
+            .text-rose-400, .text-rose-300 { color: #e11d48 !important; font-weight: bold; }
+            .text-amber-400, .text-amber-300 { color: #d97706 !important; font-weight: bold; }
+            .text-white, .text-slate-50 { color: black !important; }
+            .text-gradient { background: none !important; -webkit-text-fill-color: black !important; color: black !important; }
+            .fade-in-section { opacity: 1 !important; transform: none !important; }
+            #print-btn { display: none !important; }
+            .max-w-6xl { max-width: 100% !important; padding: 0 !important; }
+            canvas { max-width: 300px !important; margin: 0 auto !important; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-indigo-500 selection:text-white">
+
+    <div id="print-btn" class="fixed top-4 right-4 z-50">
+        <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg shadow-lg transition-colors text-sm font-bold flex items-center border border-indigo-400/50 backdrop-blur-sm">
+            🖨️ 인쇄 / PDF 저장
+        </button>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 py-12 md:py-20">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-20 fade-in-section">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-indigo-900/50 border border-indigo-500/30 text-indigo-300 text-sm font-semibold mb-6 tracking-wide">
+                통합사회 수행평가 완벽 가이드
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                내 공부를 돕는 똑똑한 <br/>
+                <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 text-gradient">AI 조수 활용법</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
+                AI는 정답 자판기가 아닙니다. 내 생각을 확장해 주고 탐구 활동을 돕는 <strong>훌륭한 '보조 도구'</strong>입니다. 현명하게 활용하는 방법을 알아봅시다.
+            </p>
+        </header>
+
+        <!-- Section 2: DO (Green) -->
+        <section class="mb-20 fade-in-section">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="text-emerald-400 text-4xl mr-3">🟢</span> DO: 이렇게 활용하세요!
+            </h2>
+            <p class="text-slate-400 mb-8 pl-2 border-l-4 border-emerald-500">통합사회 평가계획서 기준: 기초 사실 조사, 개념 이해 등은 적극 권장됩니다.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-6 border-t-4 border-t-emerald-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 text-emerald-400 text-2xl">📊</div>
+                    <h3 class="text-xl font-bold mb-3">데이터 수집 (기초 조사)</h3>
+                    <p class="text-slate-300 mb-4 text-sm">신뢰할 수 있는 통계나 기초적인 사실을 조사할 때 활용하세요.</p>
+                    <div class="bg-slate-900 p-4 rounded-lg text-sm text-emerald-300 font-mono">
+                        "세계의 환경 문제 중에서 사막화에 대한 최신 통계 찾아줘."<br><br>
+                        "우리 지역(신안군)의 인구 변화 추이 데이터를 알려줘."
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-6 border-t-4 border-t-emerald-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 text-emerald-400 text-2xl">🧠</div>
+                    <h3 class="text-xl font-bold mb-3">개념 이해 (용어 풀이)</h3>
+                    <p class="text-slate-300 mb-4 text-sm">수업 시간에 배운 어려운 사회 개념이나 용어를 쉽게 풀어달라고 요청하세요.</p>
+                    <div class="bg-slate-900 p-4 rounded-lg text-sm text-emerald-300 font-mono">
+                        "수업 중 나온 '비전 프레임'이 무슨 뜻이야?"<br><br>
+                        "문화 상대주의와 보편 윤리의 차이점을 중학생도 이해하게 설명해 줘."
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card p-6 border-t-4 border-t-emerald-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 text-emerald-400 text-2xl">💡</div>
+                    <h3 class="text-xl font-bold mb-3">아이디어 브레인스토밍</h3>
+                    <p class="text-slate-300 mb-4 text-sm">막막한 수행평가 초기, 다양한 관점에서 생각할 거리를 제공받으세요.</p>
+                    <div class="bg-slate-900 p-4 rounded-lg text-sm text-emerald-300 font-mono">
+                        "환경 문제 해결 방안을 정부, 기업, 시민 3가지 관점에서 브레인스토밍해 줘."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: DON'T (Red) -->
+        <section class="mb-20 fade-in-section">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="text-rose-500 text-4xl mr-3">🔴</span> DON'T: 절대 하면 안 되는 행동!
+            </h2>
+            <p class="text-slate-400 mb-8 pl-2 border-l-4 border-rose-500">평가계획서 엄격 반영: 대리 작성은 0점 처리될 수 있습니다.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-6 border-t-4 border-t-rose-500 bg-rose-950/10">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0 text-rose-400 text-2xl mr-4">⚠️</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">수행 과제 통째로 떠넘기기</h3>
+                            <p class="text-slate-300 mb-4 text-sm">AI가 써준 글을 그대로 복사해서 제출하는 것은 명백한 부정행위입니다. 스스로 고민한 흔적이 평가의 핵심입니다.</p>
+                            <div class="bg-rose-950/50 p-4 rounded-lg text-sm text-rose-300 font-mono line-through opacity-80">
+                                ❌ "통합사회 수행평가 지역 탐구 보고서 서론부터 결론까지 다 써줘."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-6 border-t-4 border-t-rose-500 bg-rose-950/10">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0 text-rose-400 text-2xl mr-4">📝</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">가치 및 태도 영역 대필</h3>
+                            <p class="text-slate-300 mb-4 text-sm">나의 다짐, 느낀 점, 가치관이 들어가야 하는 영역은 반드시 본인의 생각과 언어로 직접 작성해야 합니다.</p>
+                            <div class="bg-rose-950/50 p-4 rounded-lg text-sm text-rose-300 font-mono line-through opacity-80">
+                                ❌ "생태 시민으로서의 나의 다짐을 300자로 감동적으로 적어줘."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Data Credibility (Chart.js) -->
+        <section class="mb-20 fade-in-section">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="text-amber-400 text-4xl mr-3">📊</span> 자료 신뢰도 체크 및 교차 검증
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center glass-card p-8">
+                <!-- Chart Area -->
+                <div class="relative w-full max-w-md mx-auto aspect-square">
+                    <canvas id="credibilityChart"></canvas>
+                    <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
+                        <span class="text-sm text-slate-400">신뢰도 계층</span>
+                        <span class="text-2xl font-bold">크로스체크</span>
+                    </div>
+                </div>
+
+                <!-- Text Guide Area -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-amber-300">팩트체크 가이드라인</h3>
+                    <ul class="space-y-6">
+                        <li class="flex">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold mr-4">1</span>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">출처 링크 직접 확인</h4>
+                                <p class="text-slate-400 text-sm">AI(예: 퍼플렉시티)가 제공한 주석이나 링크를 클릭하여 진짜 존재하는 원문인지, 내용이 일치하는지 반드시 읽어보세요.</p>
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold mr-4">2</span>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">환각 현상(Hallucination) 주의</h4>
+                                <p class="text-slate-400 text-sm">AI는 가짜 논문 이름, 존재하지 않는 학자, 그럴듯한 허위 통계를 만들어낼 수 있습니다. 교차 검증은 필수입니다.</p>
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold mr-4">3</span>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">최신 정보 확인 (현재는 2026년)</h4>
+                                <p class="text-slate-400 text-sm">AI가 제공한 통계나 법안이 언제 기준인지 확인하세요. 너무 오래된 과거의 데이터일 수 있습니다.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Prompt Formula -->
+        <section class="fade-in-section mb-12">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="text-blue-400 text-4xl mr-3">💡</span> 고등학생을 위한 질문(프롬프트) 공식
+            </h2>
+
+            <div class="bg-gradient-to-br from-indigo-900 to-slate-800 rounded-2xl p-8 border border-indigo-500/30 relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-blue-500/10 blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-purple-500/10 blur-3xl"></div>
+
+                <div class="relative z-10">
+                    <div class="flex flex-wrap items-center justify-center gap-4 text-xl md:text-2xl font-bold mb-10 text-center">
+                        <span class="bg-indigo-600/50 px-4 py-2 rounded-lg text-indigo-200">🎭 역할 부여</span>
+                        <span class="text-slate-400">+</span>
+                        <span class="bg-blue-600/50 px-4 py-2 rounded-lg text-blue-200">📖 맥락 설명</span>
+                        <span class="text-slate-400">+</span>
+                        <span class="bg-purple-600/50 px-4 py-2 rounded-lg text-purple-200">🎯 구체적 지시</span>
+                    </div>
+
+                    <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-700 font-mono text-lg mb-8 shadow-inner">
+                        "<span class="text-indigo-300">너는 통합사회를 가르치는 선생님이야.</span> 
+                        <span class="text-blue-300">내가 '지역 공간 변화'에 대한 보고서를 쓰려고 해.</span> 
+                        <span class="text-purple-300">이 주제를 분석하기 위해 내가 찾아봐야 할 주요 지표 3가지를 추천해 줘.</span>"
+                    </div>
+
+                    <div class="border-t border-slate-700 pt-6 mt-6">
+                        <h4 class="font-bold text-lg mb-3 text-white flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            핵심 꿀팁: 역질문 활용하기
+                        </h4>
+                        <p class="text-slate-300">AI의 답변을 복사하지 말고 소리 내어 읽은 후, 스스로 요약해 보세요. 그리고 AI에게 <strong class="text-white bg-slate-800 px-2 py-1 rounded">"내가 이해한 내용이 ~인데, 이게 맞아?"</strong>라고 확인받는 과정을 거치면 진짜 내 지식이 됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-slate-500 text-sm mt-20 fade-in-section">
+            <p>© 2026 AI 조수 가이드라인 - 고등학교 통합사회 기획. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. Scroll Fade-in Animation Logic
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Trigger only once
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('.fade-in-section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // 2. Chart.js Initialization
+            const ctx = document.getElementById('credibilityChart').getContext('2d');
+            
+            // Tailwind Colors for Chart
+            const colorEmerald = '#10b981'; // 90-100%
+            const colorAmber = '#f59e0b';   // 60-80%
+            const colorRose = '#f43f5e';    // <30%
+            const colorBg = '#1e293b';
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        '매우 높음 (정부기관, 학술지, 논문)',
+                        '교차 검증 필요 (언론사, 공식 홈페이지)',
+                        '주의 (개인 블로그, 위키, 커뮤니티)'
+                    ],
+                    datasets: [{
+                        label: '신뢰도 지수 (%)',
+                        data: [95, 70, 30],
+                        backgroundColor: [
+                            colorEmerald,
+                            colorAmber,
+                            colorRose
+                        ],
+                        borderColor: colorBg,
+                        borderWidth: 4,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#cbd5e1', // text-slate-300
+                                font: {
+                                    family: "'Pretendard', sans-serif",
+                                    size: 13
+                                },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)', // slate-900
+                            titleColor: '#f8fafc',
+                            bodyColor: '#e2e8f0',
+                            bodyFont: {
+                                family: "'Pretendard', sans-serif",
+                                size: 14
+                            },
+                            padding: 12,
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label = label.split(' (')[0]; // Simplify tooltip label
+                                    }
+                                    return ` ${label} : 약 ${context.raw}% 신뢰`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
